@@ -1,0 +1,14 @@
+{
+  "_output_dir": "/home/andrew/Code/Github",
+  "_template": "gh:cjolowicz/cookiecutter-hypermodern-python",
+  "author": "Andrew Quinn",
+  "copyright_year": "2023",
+  "development_status": "Development Status :: 1 - Planning",
+  "email": "andrew.quinn@tutanota.com",
+  "friendly_name": "Wolt Summer Eng Assignment",
+  "github_user": "hiAndrewQuinn",
+  "license": "MIT",
+  "package_name": "wolt_summer_eng_assignment",
+  "project_name": "wolt-summer-eng-assignment",
+  "version": "0.0.1"
+}
