@@ -18,6 +18,9 @@ Changelog = "https://github.com/hiAndrewQuinn/wolt-summer-eng-assignment/release
 [tool.poetry.dependencies]
 python = "^3.7"
 click = ">=8.0.1"
+fastapi = "^0.89.1"
+uvicorn = "^0.20.0"
+arrow = "^1.2.3"
 
 [tool.poetry.dev-dependencies]
 Pygments = ">=2.10.0"
@@ -47,6 +50,7 @@ myst-parser = {version = ">=0.16.1"}
 
 [tool.poetry.scripts]
 wolt-summer-eng-assignment = "wolt_summer_eng_assignment.__main__:main"
+start = "wolt_summer_eng_assignment.__main__:start"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]

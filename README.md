@@ -21,6 +21,15 @@
 [pre-commit]: https://github.com/pre-commit/pre-commit
 [black]: https://github.com/psf/black
 
+# Quickstart
+
+First install [Poetry](https://python-poetry.org/docs/) however you wish. Then run
+
+```python
+poetry install
+poetry run wolt-summer-eng-assignment --help
+```
+
 ## Features
 
 - TODO
