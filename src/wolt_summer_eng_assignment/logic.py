@@ -39,7 +39,7 @@ class DeliveryInfo(BaseModel):
     number_of_items: int
     time: str
 
-    def small_order_surcharge(self):
+    def calculate_small_order_surcharge(self):
         """Calculate the small order surcharge.
 
         If the cart value is less than 10€, a small order
@@ -56,7 +56,7 @@ class DeliveryInfo(BaseModel):
             surcharge += SMALL_ORDER_SURCHARGE_UPPER_DIFF - (self.cart_value)
         return surcharge
 
-    def distance_surcharge(self):
+    def calculate_distance_surcharge(self):
         """Calculate the distance surcharge.
 
         A delivery fee for the first 1000 meters (=1km) is 2€. If
@@ -72,14 +72,17 @@ class DeliveryInfo(BaseModel):
         surcharge = SMALL_DISTANCE_SURCHARGE
         if self.delivery_distance > SMALL_DISTANCE_SURCHARGE_LIMIT:
             additional_distance_intervals = (
-                1
-                + (self.delivery_distance - SMALL_DISTANCE_SURCHARGE_LIMIT)
-                // LARGE_DISTANCE_DELTA
-            )
+                self.delivery_distance - SMALL_DISTANCE_SURCHARGE_LIMIT
+            ) // LARGE_DISTANCE_DELTA
+
+            # Even the smallest bit of runover adds an extra
+            # euro to the surcharge.
+            if self.delivery_distance % LARGE_DISTANCE_DELTA != 0:
+                additional_distance_intervals += 1
             surcharge += additional_distance_intervals * LARGE_DISTANCE_DELTA_SURCHARGE
         return surcharge
 
-    def item_number_surcharge(self):
+    def calculate_item_number_surcharge(self):
         """Calculate the item number surcharge.
 
         If the number of items is five or more, an additional 50
@@ -93,30 +96,37 @@ class DeliveryInfo(BaseModel):
         """
         surcharge = 0
 
-        if self.number_of_items > MANY_ITEMS_SURCHARGE_LIMIT:
+        if self.number_of_items >= MANY_ITEMS_SURCHARGE_LIMIT:
             surcharge += MANY_ITEMS_SURCHARGE_PER_ITEM * (
-                self.number_of_items - MANY_ITEMS_SURCHARGE_LIMIT
+                1 + self.number_of_items - MANY_ITEMS_SURCHARGE_LIMIT
             )
         if self.number_of_items > MANY_ITEMS_SURCHARGE_BULK_LIMIT:
             surcharge += MANY_ITEMS_SURCHARGE_BULK
         return surcharge
 
-    def friday_rush_surcharge(self):
+    def calculate_friday_rush_surcharge(self):
         """Calculate the Friday rush surcharge.
 
         During the Friday rush (3 - 7 PM UTC), the delivery fee (the
-        total fee including possible surcharges) will be multiplied
-        by 1.2x. However, the fee still cannot be more than the max
-        (15€).
+        total fee including possible surcharges) will be multiplied by
+        1.2x. However, the fee still cannot be more than the max (15€).
 
-        We're using global variables for now, but they
-        could be easily factored out if we wanted to
-        make this more robust to international changes.
+        We're using global variables for now, but they could be
+        easily factored out if we wanted to make this more robust to
+        international changes.
+
+        Note that this uses floats, which is not ideal for money
+        calculations. I decided to keep the logic simpler and not worry
+        about it for now.
         """
         utc_time = arrow.get(self.time).to("UTC")
         if all(
             [
-                utc_time.weekday() == 5,
+                # We could also do utc_now.weekday() = 4,
+                # but why not be explicit?
+                utc_time.format("dddd") == "Friday",
+                # Also, we Americans don't think
+                # in 24 hour time. Explicit sum it is!
                 utc_time.hour >= (12 + 3),
                 utc_time.hour <= (12 + 7),
             ]
@@ -132,19 +142,27 @@ class DeliveryInfo(BaseModel):
         I've refactored them out to make the logic more
         readable. The return is the same as before.
         """
-        # Handle the null case. An empty cart isn't supposed to
-        # be ordered, but let's not charge someone if it is.
-        if self.cart_value == 0:
+        # Carts which are over 100€ are free!
+        if self.cart_value >= 10000:
+            return 0
+        # Handle weird null cases gracefully.
+        # This is in case the frontend degrades.
+        if any(
+            [
+                self.number_of_items == 0,
+                self.delivery_distance == 0,
+            ]
+        ):
             return 0
         return int(
             min(
                 MAX_DELIVERY_SURCHARGE,
                 (
-                    self.small_order_surcharge()
-                    + self.distance_surcharge()
-                    + self.item_number_surcharge()
+                    self.calculate_small_order_surcharge()
+                    + self.calculate_distance_surcharge()
+                    + self.calculate_item_number_surcharge()
                 )
-                * self.friday_rush_surcharge(),
+                * self.calculate_friday_rush_surcharge(),
             )
         )
 

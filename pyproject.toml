@@ -52,6 +52,9 @@ myst-parser = {version = ">=0.16.1"}
 wolt-summer-eng-assignment = "wolt_summer_eng_assignment.__main__:main"
 start = "wolt_summer_eng_assignment.__main__:start"
 
+[tool.poetry.group.dev.dependencies]
+pytest-mock = "^3.10.0"
+
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
 tests = ["tests", "*/tests"]
