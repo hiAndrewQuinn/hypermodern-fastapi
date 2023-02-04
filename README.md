@@ -23,8 +23,9 @@
 
 Hi! I'm Andrew, and this is my attempt at the [Python backend preliminary coding assignment](https://github.com/woltapp/engineering-summer-intern-2023) for Wolt. I like animated screenshots, so here's an example of my solution in action:
 
-![demo](https://user-images.githubusercontent.com/53230903/216786616-c4c7be95-0f5d-4ea2-8ef8-aad03fc6a60b.svg)
+![Demo with 4 multiplexed screens of code. Upper left shows the web server running; lower left shows the content of a request payload I'm sending with a simple Bash script. Lower right shows a 2 second loop of the response payload of the lower right, which I change in real time. Upper right shows the results of the pytest and miscellaneous information.](https://user-images.githubusercontent.com/53230903/216786616-c4c7be95-0f5d-4ea2-8ef8-aad03fc6a60b.svg)
 
+(You can see an identical SVG in the `demo.svg` of this file as well, although generally speaking I don't like committing large files like that to repos.)
 
 # Quickstart
 
@@ -35,40 +36,24 @@ poetry install
 poetry run wolt-summer-eng-assignment --help
 ```
 
+Then go ahead and send your payloads to whatever port it assigns you, most likely `localhost:8000`.
+
 ## Features
 
-- TODO
+This is just a preliminary assignment, but here are some directions I could go.
+
+- *Figure out a way to test the server code in `__main__.py`.* I factored out the business logic to `logic.py` and
+  have that tested fairly well (writing those unit tests actually showed me a lot of flaws in my original thinking),
+  but I don't have anything in place testing the FastAPI code itself yet. I'm not doing anything fancy with it but
+  it would be nice.
+- *Fix everything `nox` complains about.* I do `poetry run pytest` in the animated SVG but that's actually just the
+  tip of the iceberg. You can run `nox` on this repo to see _a lot_ more places where things can be fixed,
+  dependency patches could be applied, etc.
+- *Use types!* `mypy` exists in here and would probably make this look much more professional if I were to use it.
 
 ## Requirements
 
-- TODO
-
-## Installation
-
-You can install _Wolt Summer Eng Assignment_ via [pip] from [PyPI]:
-
-```console
-$ pip install wolt-summer-eng-assignment
-```
-
-## Usage
-
-Please see the [Command-line Reference] for details.
-
-## Contributing
-
-Contributions are very welcome.
-To learn more, see the [Contributor Guide].
-
-## License
-
-Distributed under the terms of the [MIT license][license],
-_Wolt Summer Eng Assignment_ is free and open source software.
-
-## Issues
-
-If you encounter any problems,
-please [file an issue] along with a detailed description.
+All documented in [Wolt's "Specifications" section](https://github.com/woltapp/engineering-summer-intern-2023#specification).
 
 ## Credits
 
