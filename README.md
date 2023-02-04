@@ -38,6 +38,30 @@ poetry run wolt-summer-eng-assignment --help
 
 Then go ahead and send your payloads to whatever port it assigns you, most likely `localhost:8000`.
 
+## For code review
+
+There are a lot of files in here, I know. Here are the ones you _actually_ want to look at:
+
+
+```bash
+.
+├── src
+│   └── wolt_summer_eng_assignment
+│       ├── logic.py
+│       ├── __main__.py
+└── tests
+    ├── test_logic.py
+    └── test_main.py
+```
+
+- `__main__.py` contains the FastAPI wrapper that we run in a loop to create the server.
+- `logic.py` contains the data models and business logic of the application.
+  - These _used_ to be in `__main__.py` as well, but I figured splitting them into their
+    own file made it easier to keep track of everything.
+- `test_logic.py` is where I implement the unit tests for `logic.py`. These were incredibly helpful to write!
+- `test_main.py` is where I _would_ put the code to test the server part, but I decided against it due to time constraints.
+
+
 ## Features
 
 This is just a preliminary assignment, but here are some directions I could go.
