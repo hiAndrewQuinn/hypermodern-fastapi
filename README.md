@@ -21,6 +21,11 @@
 [pre-commit]: https://github.com/pre-commit/pre-commit
 [black]: https://github.com/psf/black
 
+Hi! I'm Andrew, and this is my attempt at the [Python backend preliminary coding assignment](https://github.com/woltapp/engineering-summer-intern-2023) for Wolt. I like animated screenshots, so here's an example of my solution in action:
+
+![demo](https://user-images.githubusercontent.com/53230903/216786616-c4c7be95-0f5d-4ea2-8ef8-aad03fc6a60b.svg)
+
+
 # Quickstart
 
 First install [Poetry](https://python-poetry.org/docs/) however you wish. Then run
