@@ -29,6 +29,8 @@ Hi! I'm Andrew, and this is my attempt at the [Python backend preliminary coding
 
 # Quickstart
 
+## Using Poetry (recommended)
+
 First install [Poetry](https://python-poetry.org/docs/) however you wish. Then run
 
 ```python
@@ -36,7 +38,49 @@ poetry install
 poetry run wolt-summer-eng-assignment --help
 ```
 
-Then go ahead and send your payloads to whatever port it assigns you, most likely `localhost:8000`.
+Then go ahead and send your payloads to whatever port it assigns you, most likely `localhost:8000`. Among other things Poetry also makes it easy to run the code tests for yourself by using `poetry run pytest` or `nox`.
+
+## Using `pip`
+
+First ensure your system has the required dependencies, by running
+
+```bash
+pip install -r requirements.txt
+```
+
+in the root directory. Then simply enter the `src` folder and run as a module:
+
+```bash
+cd src/
+python -m wolt_summer_eng_assignment
+```
+
+You should now be able to send your request payloads however you wish to `localhost`.
+
+## Sending payload packets easily with `payload-example.sh`
+
+I have included a copy of the `example.sh` script from
+the animated SVG above in the
+root directory of this project as `payload-example.sh` to
+make things as easy as possible to debug.
+
+With the server running in one terminal, and assuming
+it has mapped to `localhost:8000`, simply run
+
+```bash
+bash payload-example.sh
+```
+
+to send a payload JSON to the server. It will print the
+response payload JSON in turn. You can run this every
+2 seconds as you dynamically play around with the variables
+by running
+
+```bash
+watch 'bash payload-example.sh'
+```
+
+in a separate terminal as well. 
 
 ## For code review
 
