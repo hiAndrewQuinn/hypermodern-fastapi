@@ -46,6 +46,8 @@ Then go ahead and send your payloads to whatever port it assigns you, most likel
 
 ## Using `pip`
 
+_Tested on a fresh Docker pull of Ubuntu, but I can make no guarantees it is seamless._
+
 First ensure your system has the required dependencies, by running
 
 ```bash
