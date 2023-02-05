@@ -1,14 +1,5 @@
 # Wolt Summer Eng Assignment
 
-[![PyPI](https://img.shields.io/pypi/v/wolt-summer-eng-assignment.svg)][pypi_]
-[![Status](https://img.shields.io/pypi/status/wolt-summer-eng-assignment.svg)][status]
-[![Python Version](https://img.shields.io/pypi/pyversions/wolt-summer-eng-assignment)][python version]
-[![License](https://img.shields.io/pypi/l/wolt-summer-eng-assignment)][license]
-
-[![Read the documentation at https://wolt-summer-eng-assignment.readthedocs.io/](https://img.shields.io/readthedocs/wolt-summer-eng-assignment/latest.svg?label=Read%20the%20Docs)][read the docs]
-[![Tests](https://github.com/hiAndrewQuinn/wolt-summer-eng-assignment/workflows/Tests/badge.svg)][tests]
-[![Codecov](https://codecov.io/gh/hiAndrewQuinn/wolt-summer-eng-assignment/branch/main/graph/badge.svg)][codecov]
-
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)][pre-commit]
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)][black]
 
@@ -21,11 +12,24 @@
 [pre-commit]: https://github.com/pre-commit/pre-commit
 [black]: https://github.com/psf/black
 
-Hi! I'm Andrew, and this is my attempt at the [Python backend preliminary coding assignment](https://github.com/woltapp/engineering-summer-intern-2023) for Wolt. I like animated screenshots, so here's an example of my solution in action:
+Hi! I'm Andrew, and this is my attempt at the [Python backend preliminary coding assignment](https://github.com/woltapp/engineering-summer-intern-2023) for Wolt. 
+
+I like animated screenshots, so here's my solution in action:
 
 ![Demo with 4 multiplexed screens of code. Upper left shows the web server running; lower left shows the content of a request payload I'm sending with a simple Bash script. Lower right shows a 2 second loop of the response payload of the lower right, which I change in real time. Upper right shows the results of the pytest and miscellaneous information.](https://user-images.githubusercontent.com/53230903/216786616-c4c7be95-0f5d-4ea2-8ef8-aad03fc6a60b.svg)
 
 (You can see an identical SVG in the `demo.svg` of this file as well, although generally speaking I don't like committing large files like that to repos.)
+
+1. [Wolt Summer Eng Assignment](#wolt-summer-eng-assignment)
+2. [Quickstart](#quickstart)
+   1. [Using Poetry (recommended)](#using-poetry-recommended)
+   2. [Using `pip`](#using-pip)
+   3. [Sending payload packets fast with `payload-example.sh`](#sending-payload-packets-fast-with-payload-examplesh)
+   4. [For code review](#for-code-review)
+   5. [Ways I could improve this](#ways-i-could-improve-this)
+   6. [Requirements](#requirements)
+   7. [Credits](#credits)
+
 
 # Quickstart
 
@@ -33,7 +37,7 @@ Hi! I'm Andrew, and this is my attempt at the [Python backend preliminary coding
 
 First install [Poetry](https://python-poetry.org/docs/) however you wish. Then run
 
-```python
+```bash
 poetry install
 poetry run wolt-summer-eng-assignment --help
 ```
@@ -57,7 +61,7 @@ python -m wolt_summer_eng_assignment
 
 You should now be able to send your request payloads however you wish to `localhost`.
 
-## Sending payload packets easily with `payload-example.sh`
+## Sending payload packets fast with `payload-example.sh`
 
 I have included a copy of the `example.sh` script from
 the animated SVG above in the
@@ -84,8 +88,9 @@ in a separate terminal as well.
 
 ## For code review
 
-There are a lot of files in here, I know. Here are the ones you _actually_ want to look at:
+There are a lot of files in here, I know. I'm a maximalist when it comes to setting up new projects, but I'm not dogmatic about it.
 
+Here are the _important_ files to look at for my solution:
 
 ```bash
 .
@@ -95,18 +100,16 @@ There are a lot of files in here, I know. Here are the ones you _actually_ want 
 │       ├── __main__.py
 └── tests
     ├── test_logic.py
-    └── test_main.py
 ```
 
-- `__main__.py` contains the FastAPI wrapper that we run in a loop to create the server.
+- `__main__.py` contains the FastAPI logic that we run in a loop to create the server.
 - `logic.py` contains the data models and business logic of the application.
   - These _used_ to be in `__main__.py` as well, but I figured splitting them into their
     own file made it easier to keep track of everything.
 - `test_logic.py` is where I implement the unit tests for `logic.py`. These were incredibly helpful to write!
-- `test_main.py` is where I _would_ put the code to test the server part, but I decided against it due to time constraints.
 
 
-## Features
+## Ways I could improve this
 
 This is just a preliminary assignment, but here are some directions I could go.
 
@@ -118,6 +121,8 @@ This is just a preliminary assignment, but here are some directions I could go.
   tip of the iceberg. You can run `nox` on this repo to see _a lot_ more places where things can be fixed,
   dependency patches could be applied, etc.
 - *Use types!* `mypy` exists in here and would probably make this look much more professional if I were to use it.
+- *Make `__main__.py` smaller.* There are bits of `__main__.py` I don't think have to be there, and improving the
+  CLI-based help would be practically mandatory for me if I were to ship this for the general public.
 
 ## Requirements
 
