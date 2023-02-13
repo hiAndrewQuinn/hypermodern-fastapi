@@ -12,13 +12,9 @@
 [pre-commit]: https://github.com/pre-commit/pre-commit
 [black]: https://github.com/psf/black
 
-Hi! I'm Andrew, and this is my attempt at the [Python backend preliminary coding assignment](https://github.com/woltapp/engineering-summer-intern-2023) for Wolt. 
-
-I like animated screenshots, so here's my solution in action:
+Hi! I'm Andrew, and this is `hypermodern-fastapi`. This repo implements a **single** REST endpoint, as in the screenshot below:
 
 ![Demo with 4 multiplexed screens of code. Upper left shows the web server running; lower left shows the content of a request payload I'm sending with a simple Bash script. Lower right shows a 2 second loop of the response payload of the lower right, which I change in real time. Upper right shows the results of the pytest and miscellaneous information.](https://user-images.githubusercontent.com/53230903/216786616-c4c7be95-0f5d-4ea2-8ef8-aad03fc6a60b.svg)
-
-(You can see an identical SVG in the `demo.svg` of this file as well, although generally speaking I don't like committing large files like that to repos.)
 
 1. [Wolt Summer Eng Assignment](#wolt-summer-eng-assignment)
 2. [Quickstart](#quickstart)
