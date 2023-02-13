@@ -12,7 +12,7 @@
 [pre-commit]: https://github.com/pre-commit/pre-commit
 [black]: https://github.com/psf/black
 
-Hi! I'm Andrew, and this is `hypermodern-fastapi`. This repo implements a **single** REST endpoint, as in the screenshot below:
+Hi! I'm Andrew, and this is `hypermodern-fastapi`. This repo implements a **single** REST endpoint, per the animated SVG below:
 
 ![Demo with 4 multiplexed screens of code. Upper left shows the web server running; lower left shows the content of a request payload I'm sending with a simple Bash script. Lower right shows a 2 second loop of the response payload of the lower right, which I change in real time. Upper right shows the results of the pytest and miscellaneous information.](https://user-images.githubusercontent.com/53230903/216786616-c4c7be95-0f5d-4ea2-8ef8-aad03fc6a60b.svg)
 
